@@ -1,4 +1,3 @@
-// Refactored basic example w/ multiple modules
 
 const mongoose = require('./mongoose');
 const util = require('util');
@@ -22,7 +21,7 @@ router
           mongoose.connect('mongodb://localhost/game');
           mongoose.plugin(beautifyUnique);
 
-/*          let user;
+/*        let user;
 
           findUser()
           .then(ctx.body = user)
@@ -79,18 +78,19 @@ router
               .then(() => mongoose.disconnect());
 
       })
-      .patch("/users/:id", async function (ctx) {
+/*      .patch("/users/:id", async function (ctx) {
           console.log("Engine: PATCH " + "/users/:id");
           console.log(ctx.params.id);
-          let id = ctx.params.id;
-          let email = ctx.request.body.email;
-          let displayname = ctx.request.body.displayName;
+          let foto = ctx.request.body.Foto;
+          let name = ctx.request.body.Name;
+          let ID = ctx.request.body.ID;
+          let score = ctx.request.body.Score;
 
           await mongoose.connect('mongodb://localhost/test');
           await mongoose.plugin(beautifyUnique);
 
           async function updateUser() {
-            await User.findByIdAndUpdate(id, { email: email, displayName: displayname });
+            await User.findByIdAndUpdate(id, {  });
           };
 
           updateUser()
@@ -98,7 +98,7 @@ router
               .catch(console.error)
               .then(() => mongoose.disconnect());
 
-      })
+      })*/
       .delete("/users/:id", async function (ctx) {
           console.log("Engine: DELETE " + "/users/:id");
           console.log(ctx.params.id);
@@ -120,26 +120,17 @@ router
 
           user = await User.find({ ID: id });
           console.log(user);
-          ctx.body = user;
+          
 
           if(user) {
             await User.deleteOne({ ID: id }, function (err) {
               console.log(err);
+              ctx.body = "ok";
             });
           } else {
             console.log("Пользователь не найден");
           }
-          //await User.findOneAndRemove({ ID: id });
-          //await User.findByIdAndRemove('5ace892181991992c90f943c');
-          //ctx.body = "ok";
 
-/*           let deleteUser = await User.findById(ctx.params.id);
-           if (deleteUser) {
-             deleteUser = await User.deleteOne(ctx.params.id);
-             ctx.body = 'Пользователь удален';
-           } else {
-             ctx.throw(404, 'Пользователя с таким _id нет', {errors:{_id:'Пользователя с таким _id нет'}});
-           }*/
 
 
       })
@@ -167,30 +158,3 @@ app.use(router.routes());
 app.listen(3000);
 
 
-
-
-/*const mary = new User({
-  email: 'mary@mail.com'
-});
-
-// no error handling here (bad)
-User.remove({}, function(err) {
-
-  mary.save(function(err, result) {
-    console.log(result);
-
-    User.findOne({
-      email: 'mary@mail.com'
-    }, function(err, user) {
-      console.log(user);
-
-      // ... do more with mary
-
-      // no unref!
-      mongoose.disconnect();
-    });
-
-  });
-
-});
-*/
